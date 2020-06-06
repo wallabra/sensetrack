@@ -1,0 +1,53 @@
+{
+    "genres": ["happy", "sad"],
+    "tracks": [
+        {
+            "genre": "happy",
+            "random": 0.5,
+            "notes": [
+                0,
+                2,
+                2,
+                1,
+                -1,
+                -2,
+                -2,
+                null
+            ]
+        },
+
+        {
+            "genre": "happy",
+            "random": 0.3,
+            "notes": [
+                0,
+                7,
+                -3,
+                1,
+                -1,
+                -2,
+                -2,
+                4,
+                null
+            ]
+        },
+
+        {
+            "genre": "sad",
+            "random": 0.2,
+            "notes": [
+                0,
+                2,
+                1,
+                3,
+                3,
+                -4,
+                3,
+                -2,
+                -1,
+                -5,
+                null
+            ]
+        }
+    ]
+}

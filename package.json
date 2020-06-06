@@ -1,0 +1,21 @@
+{
+  "name": "sensetrack",
+  "version": "1.0.0",
+  "description": "Test sketch for Haxe SenseTrack.",
+  "main": "built/index.js",
+  "author": "Gustavo6046 <rehermann6046@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "@types/howler": "^2.1.2",
+    "@types/synaptic": "^1.0.3",
+    "eventemitter3": "^4.0.4",
+    "howler": "^2.2.0",
+    "synaptic": "^1.1.4",
+    "tone": "^14.7.3"
+  },
+  "devDependencies": {
+    "typedoc": "^0.17.7",
+    "typescript": "^3.9.5"
+  }
+}
