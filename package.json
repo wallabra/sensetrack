@@ -3,19 +3,32 @@
   "version": "1.0.0",
   "description": "Test sketch for Haxe SenseTrack.",
   "main": "built/index.js",
+  "types": "src/index.js",
   "author": "Gustavo6046 <rehermann6046@gmail.com>",
   "license": "MIT",
   "private": true,
   "dependencies": {
     "@types/howler": "^2.1.2",
+    "@types/node": "^14.0.11",
     "@types/synaptic": "^1.0.3",
     "eventemitter3": "^4.0.4",
     "howler": "^2.2.0",
-    "synaptic": "^1.1.4",
-    "tone": "^14.7.3"
+    "synaptic": "^1.1.4"
   },
   "devDependencies": {
+    "@babel/core": "^7.10.2",
+    "@babel/preset-env": "^7.10.2",
+    "babelify": "^10.0.0",
+    "brfs": "^2.0.2",
+    "browserify": "^16.5.1",
+    "tsify": "^4.0.2",
     "typedoc": "^0.17.7",
     "typescript": "^3.9.5"
+  },
+  "scripts": {
+    "build-demo": "cd web && browserify -d -p [ tsify --sourceMap --noImplicit --module CommonJS ] -t [ babelify  --extensions .ts ] -r ./src/main.ts:sensetrack-demo > bundle.js",
+    "build-lib": "tsc",
+    "build-docs": "typedoc --out docs src",
+    "build": "npm run build-lib && npm run build-demo && npm run build-docs"
   }
 }

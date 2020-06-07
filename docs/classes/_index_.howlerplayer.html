@@ -72,8 +72,8 @@
 			<section class="tsd-panel tsd-comment">
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<p>A basic <a href="../interfaces/_index_.trackplayer.html"><code>TrackPlayer</code></a> implementation that
-						uses Howler.js.</p>
+						<p>A <a href="../interfaces/_index_.trackplayer.html"><code>TrackPlayer</code></a> implementation that
+						uses {@link Howler | Howler.js} as its backend.</p>
 					</div>
 				</div>
 			</section>
@@ -107,9 +107,11 @@
 						<section class="tsd-index-section ">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_index_.howlerplayer.html#clear" class="tsd-kind-icon">clear</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_index_.howlerplayer.html#alloff" class="tsd-kind-icon">all<wbr>Off</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_index_.howlerplayer.html#allstop" class="tsd-kind-icon">all<wbr>Stop</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_index_.howlerplayer.html#off" class="tsd-kind-icon">off</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_index_.howlerplayer.html#on" class="tsd-kind-icon">on</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_index_.howlerplayer.html#setbpm" class="tsd-kind-icon">set<wbr>Bpm</a></li>
 							</ul>
 						</section>
 					</div>
@@ -127,7 +129,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in index.ts:199</li>
+									<li>Defined in <a href="https://github.com/Gustavo6046/sensetrack/blob/f4c4758/src/index.ts#L196">index.ts:196</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -155,7 +157,7 @@
 					<div class="tsd-signature tsd-kind-icon">envelope<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_index_.adsrenvelope.html" class="tsd-signature-type">AdsrEnvelope</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in index.ts:201</li>
+							<li>Defined in <a href="https://github.com/Gustavo6046/sensetrack/blob/f4c4758/src/index.ts#L198">index.ts:198</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -165,7 +167,7 @@
 					<div class="tsd-signature tsd-kind-icon">howl<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Howl</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in index.ts:201</li>
+							<li>Defined in <a href="https://github.com/Gustavo6046/sensetrack/blob/f4c4758/src/index.ts#L198">index.ts:198</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -175,7 +177,7 @@
 					<div class="tsd-signature tsd-kind-icon">playing<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Set</span><span class="tsd-signature-symbol">&lt;</span><a href="_index_.howlernote.html" class="tsd-signature-type">HowlerNote</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> = new Set()</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in index.ts:199</li>
+							<li>Defined in <a href="https://github.com/Gustavo6046/sensetrack/blob/f4c4758/src/index.ts#L196">index.ts:196</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -185,7 +187,7 @@
 					<div class="tsd-signature tsd-kind-icon">resolution<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in index.ts:201</li>
+							<li>Defined in <a href="https://github.com/Gustavo6046/sensetrack/blob/f4c4758/src/index.ts#L198">index.ts:198</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -193,18 +195,45 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Methods</h2>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="clear" class="tsd-anchor"></a>
-					<h3>clear</h3>
+					<a name="alloff" class="tsd-anchor"></a>
+					<h3>all<wbr>Off</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">clear<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon">all<wbr>Off<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in index.ts:203</li>
+									<li>Defined in <a href="https://github.com/Gustavo6046/sensetrack/blob/f4c4758/src/index.ts#L212">index.ts:212</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Finishes all playing <a href="_index_.howlernote.html"><code>notes</code></a>.</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="allstop" class="tsd-anchor"></a>
+					<h3>all<wbr>Stop</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">all<wbr>Stop<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/Gustavo6046/sensetrack/blob/f4c4758/src/index.ts#L203">index.ts:203</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Stops all playing <a href="_index_.howlernote.html"><code>notes</code></a>.</p>
+								</div>
+							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 						</li>
 					</ul>
@@ -219,7 +248,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in index.ts:222</li>
+									<li>Defined in <a href="https://github.com/Gustavo6046/sensetrack/blob/f4c4758/src/index.ts#L233">index.ts:233</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -230,19 +259,42 @@
 					<a name="on" class="tsd-anchor"></a>
 					<h3>on</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">on<span class="tsd-signature-symbol">(</span>pitch<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon">on<span class="tsd-signature-symbol">(</span>pitch<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in index.ts:209</li>
+									<li>Defined in <a href="https://github.com/Gustavo6046/sensetrack/blob/f4c4758/src/index.ts#L220">index.ts:220</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>pitch: <span class="tsd-signature-type">any</span></h5>
+									<h5>pitch: <span class="tsd-signature-type">number</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="setbpm" class="tsd-anchor"></a>
+					<h3>set<wbr>Bpm</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">set<wbr>Bpm<span class="tsd-signature-symbol">(</span>bpm<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/Gustavo6046/sensetrack/blob/f4c4758/src/index.ts#L237">index.ts:237</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>bpm: <span class="tsd-signature-type">number</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -259,9 +311,6 @@
 					</li>
 					<li class="current tsd-kind-module">
 						<a href="../modules/_index_.html">&quot;index&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="../modules/_test_.html">&quot;test&quot;</a>
 					</li>
 				</ul>
 			</nav>
@@ -294,13 +343,19 @@
 								<a href="_index_.howlerplayer.html#resolution" class="tsd-kind-icon">resolution</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="_index_.howlerplayer.html#clear" class="tsd-kind-icon">clear</a>
+								<a href="_index_.howlerplayer.html#alloff" class="tsd-kind-icon">all<wbr>Off</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_index_.howlerplayer.html#allstop" class="tsd-kind-icon">all<wbr>Stop</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="_index_.howlerplayer.html#off" class="tsd-kind-icon">off</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="_index_.howlerplayer.html#on" class="tsd-kind-icon">on</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_index_.howlerplayer.html#setbpm" class="tsd-kind-icon">set<wbr>Bpm</a>
 							</li>
 						</ul>
 					</li>
@@ -313,7 +368,7 @@
 						<a href="_index_.sensetrack.html" class="tsd-kind-icon">Sense<wbr>Track</a>
 					</li>
 					<li class=" tsd-kind-class tsd-parent-kind-module">
-						<a href="_index_.tonejsplayer.html" class="tsd-kind-icon">Tonejs<wbr>Player</a>
+						<a href="_index_.trackcontext.html" class="tsd-kind-icon">Track<wbr>Context</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="../interfaces/_index_.adsrenvelope.html" class="tsd-kind-icon">Adsr<wbr>Envelope</a>
@@ -367,14 +422,13 @@
 		<h2>Legend</h2>
 		<div class="tsd-legend-group">
 			<ul class="tsd-legend">
-				<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
-				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
-				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
-			</ul>
-			<ul class="tsd-legend">
 				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
 				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
 				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
+				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
 			</ul>
 			<ul class="tsd-legend">
 				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>

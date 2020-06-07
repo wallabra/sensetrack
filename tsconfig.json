@@ -3,8 +3,12 @@
         "outDir": "./built",
         "allowJs": true,
         "target": "es6",
-        "module": "CommonJS",
-        "resolveJsonModule": true
+        "module": "ES6",
+        "moduleResolution": "Node",
+        "resolveJsonModule": true,
+        "noImplicitAny": true,
+        "keyofStringsOnly": false,
+        "sourceMap": true
     },
     "include": [
         "./src/**/*"

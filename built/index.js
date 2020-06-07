@@ -1,4 +1,3 @@
-"use strict";
 /**
  * SenseTrack.
  *
@@ -23,75 +22,12 @@
  * @license MIT
  * @since 6th of June 2020
  */
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.DefinitionLoader = exports.SenseTrack = exports.TrackContext = exports.isGenreMap = exports.HowlerPlayer = exports.HowlerNote = exports.TonejsPlayer = void 0;
-const EventEmitter = require("eventemitter3");
-const Tone = require("tone");
-const synaptic_1 = require("synaptic");
-/**
- * A {@linkcode TrackPlayer} implementation that uses
- * {@link Tone | Tone.js} as a backend..
- */
-class TonejsPlayer {
-    /**
-     * @param bpm Beats per minute.
-     * @param baseNote Base note (need not be middle C). This is what the pen will be relative to.
-     * @param synOpts Tone.js synth options.
-     */
-    constructor(bpm = 130, baseNote = 440, synOpts) {
-        this.bpm = bpm;
-        this.baseNote = baseNote;
-        /**
-         * Last note.
-         */
-        this.note = null;
-        /**
-         * Last position in eighth notes.
-         */
-        this.pos = 0;
-        this.synth = new Tone.Synth(synOpts).toMaster();
-        this.loop = new Tone.Loop(time => {
-            this.synth.triggerAttack(this.getNoteFreq(), time);
-        }, '8n');
-    }
-    /**
-     * Gets the current note's frequency, in hertz.
-     */
-    getNoteFreq() {
-        return this.baseNote * Math.pow(2, this.note / 12);
-    }
-    /**
-     * Gets the duration in seconds of a quarter note.
-     */
-    quarterNoteSecs() {
-        return 60 / this.bpm;
-    }
-    /**
-     * Gets the last position in seconds.
-     */
-    getPosSecs() {
-        return 30 * this.pos / this.bpm;
-    }
-    // TrackPlayer implementors
-    on(pitch) {
-        this.loop.stop();
-        this.note = pitch;
-        this.loop.start(this.getPosSecs());
-        this.pos++;
-    }
-    off() {
-        this.synth.triggerRelease();
-        this.loop.stop();
-    }
-    setBpm(bpm) {
-        this.bpm = bpm;
-    }
-}
-exports.TonejsPlayer = TonejsPlayer;
+import * as EventEmitter from "eventemitter3";
+import { Architect, Trainer } from "synaptic";
 /**
  * An instance of a playing note in a {@link HowlerPlayer}.
  */
-class HowlerNote {
+export class HowlerNote {
     constructor(howl, soundID, envelope, resolution = 50, done) {
         this.howl = howl;
         this.soundID = soundID;
@@ -103,15 +39,14 @@ class HowlerNote {
         this.adsr = {
             state: 'attack',
             phase: 0.0,
-            pos: 0.0,
             prevLevel: 0.0,
         };
         this.level = 0.0;
         this.adsrInterval = setInterval(this.adsrLoop.bind(this, resolution / 1000), resolution);
     }
     adsrLoop(deltaTime) {
-        this.adsr.pos += deltaTime;
-        this.adsr.phase += deltaTime / this.envelope[this.adsr.state];
+        if (this.adsr.state != 'sustain')
+            this.adsr.phase += deltaTime / this.envelope[this.adsr.state];
         while (this.adsr.phase > 1.0) {
             this.adsr.phase -= 1.0;
             switch (this.adsr.state) {
@@ -120,11 +55,11 @@ class HowlerNote {
                     this.adsr.state = 'decay';
                     break;
                 case 'decay':
-                    this.adsr.prevLevel = this.envelope.sustainLevelStart;
+                    this.adsr.prevLevel = this.envelope.sustainLevel;
                     this.adsr.state = 'sustain';
                     break;
                 case 'sustain':
-                    this.adsr.prevLevel = this.envelope.sustainLevelEnd;
+                    this.adsr.prevLevel = this.envelope.sustainLevel;
                     this.adsr.state = 'release';
                     break;
                 case 'release':
@@ -142,10 +77,10 @@ class HowlerNote {
                 nextLevel = 1.0;
                 break;
             case 'decay':
-                nextLevel = this.envelope.sustainLevelStart;
+                nextLevel = this.envelope.sustainLevel;
                 break;
             case 'sustain':
-                nextLevel = this.envelope.sustainLevelEnd;
+                nextLevel = this.envelope.sustainLevel;
                 break;
             case 'release':
                 nextLevel = 0.0;
@@ -156,6 +91,13 @@ class HowlerNote {
         this.howl.volume(this.level, this.soundID);
     }
     noteOff() {
+        if (this.adsr.state != 'release') {
+            this.adsr.state = 'release';
+            this.adsr.phase = 0;
+            this.adsr.prevLevel = this.level;
+        }
+    }
+    noteStop() {
         if (this.adsrInterval) {
             clearInterval(this.adsrInterval);
             this.howl.fade(this.level, 0, 0.15, this.soundID);
@@ -164,12 +106,11 @@ class HowlerNote {
         }
     }
 }
-exports.HowlerNote = HowlerNote;
 /**
  * A {@linkcode TrackPlayer} implementation that
  * uses {@link Howler | Howler.js} as its backend.
  */
-class HowlerPlayer {
+export class HowlerPlayer {
     constructor(howl, envelope, resolution = 50) {
         this.howl = howl;
         this.envelope = envelope;
@@ -179,14 +120,22 @@ class HowlerPlayer {
     /**
      * Stops all playing {@linkcode HowlerNote | notes}.
      */
-    clear() {
+    allStop() {
+        this.playing.forEach((note) => {
+            note.noteStop();
+        });
+    }
+    /**
+     * Finishes all playing {@linkcode HowlerNote | notes}.
+     */
+    allOff() {
         this.playing.forEach((note) => {
             note.noteOff();
         });
     }
     // TrackPlayer implementors
     on(pitch) {
-        this.clear(); // stop any playing notes first
+        this.allOff(); // stop any playing notes first
         let sndId = this.howl.play();
         this.howl.rate(Math.pow(2, pitch / 12), sndId); // yay for the semitone formula!
         this.howl.loop(true, sndId);
@@ -195,13 +144,13 @@ class HowlerPlayer {
         }));
     }
     off() {
-        this.clear();
+        this.allStop();
     }
     setBpm(bpm) {
-        return; // no-op, as this is not needed here; aka let SenseTrack take care of it!
+        // not needed in this implementation
+        return;
     }
 }
-exports.HowlerPlayer = HowlerPlayer;
 /**
  * Current state of the SenseTrack note generator.
  */
@@ -210,7 +159,7 @@ class NotePen {
         this.events = events;
         this.position = position;
         this.on = false; // whether pen is on
-        this.bounds = [null, null];
+        this.bounds = [-30, 30];
     }
     /**
      * Sets the minimum position of the pen, in the absolute semiton scale.
@@ -259,6 +208,7 @@ class NotePen {
         if (bMax)
             while (newPos > bMax)
                 newPos -= 12; // ...until the note is pleasant!
+        console.log(`Pen moved${this.on ? ' from ' + this.position : ''} to ${newPos}`);
         this.position = newPos;
         this.on = true;
         this.events.emit('on', this.position);
@@ -279,35 +229,92 @@ class NotePen {
  * @param value The value to be checked.
  * @see GenreMap
  */
-function isGenreMap(value) {
+export function isGenreMap(value) {
     return value.values !== undefined;
 }
-exports.isGenreMap = isGenreMap;
 /**
  * The context under the which a {@linkcode SenseTrack}
  * is played. Use this to play it!
  */
-class TrackContext {
-    constructor(track, bpm) {
+export class TrackContext {
+    constructor(track, genre, randomization = 0.4, bpm = 130) {
         this.track = track;
+        this.genre = genre;
+        this.randomization = randomization;
         this.bpm = bpm;
+        this.playing = false;
+        this.emitters = new Set();
+        this._intv = null;
+        track.setBpm(bpm);
     }
+    /**
+     * Emits an event to all registered {@linkcode EventEmitter}s.
+     * @param event Event name.
+     * @param args Event arguments.
+     * @see addEmitter
+     */
+    emit(event, ...args) {
+        this.emitters.forEach((e) => {
+            e.emit(event, ...args);
+        });
+    }
+    /**
+     * Registers an {@linkcode EventEmitter} to this context.
+     * @param ee The event emitter to add.
+     */
+    addEmitter(ee) {
+        this.emitters.add(ee);
+    }
+    /**
+     * Unregisters an {@linkcode EventEmitter} from this context.
+     * @param ee The event emitter to remove.
+     */
+    removeEmitter(ee) {
+        this.emitters.delete(ee);
+    }
+    /**
+     * Single iteration of the context's music loop.
+     */
+    doLoop() {
+        this.emit('update', this);
+        let instr = this.track.step(this.track.makeGenreVector(this.genre));
+        this.emit('post-step', this, instr);
+    }
+    /**
+     * Stops the context's loop.
+     */
+    stop() {
+        this.playing = false;
+        this.track.penOff();
+    }
+    /**
+     * Starts the context's music loop.
+     */
     start() {
+        this.playing = true;
+        if (!this._intv) {
+            this.doLoop();
+            this._intv = setTimeout(() => {
+                this._intv = null;
+                if (this.playing)
+                    this.start();
+            }, 30000 / this.bpm); // eighth note
+        }
     }
 }
-exports.TrackContext = TrackContext;
 /**
  * The spotlit class, responsible for driving
  * the pen responsibly.
  */
-class SenseTrack {
+export class SenseTrack {
     constructor(params) {
         this.players = new Set();
+        this.events = new EventEmitter();
         this.params = {
             // default params
             maxMove: 7,
             genres: ['A', 'B', 'C'],
-            maxMemory: 6,
+            maxMemory: 4,
             allowRandom: true,
         };
         // Creating a new object also helps prevent
@@ -315,34 +322,36 @@ class SenseTrack {
         // would totally not be our fault anyways.
         Object.assign(this.params, params);
         let initBounds = params.initBounds || { min: -15, max: 15 };
-        let events = new EventEmitter();
-        this.pen = new NotePen(events, params.initPos || 0, this.params);
+        this.pen = new NotePen(this.events, params.initPos || 0, this.params);
         if (params.initBounds)
             this.pen.setBounds(initBounds.min || null, initBounds.max || null);
-        events.on('on', (note) => {
+        this.events.on('on', (note) => {
             this.players.forEach((player) => {
                 player.on(note);
             });
         });
-        events.on('off', () => {
+        this.events.on('off', () => {
             this.players.forEach((player) => {
                 player.off();
             });
         });
         let numMoves = 2 + this.params.maxMove * 2;
-        this.memory = Array(params.maxMemory).fill(null);
-        this.net = new synaptic_1.Architect.Perceptron(numMoves * this.params.maxMemory + this.params.genres.length + (this.params.allowRandom ? 1 : 0), 
+        this.inputSize = numMoves * this.params.maxMemory + this.params.genres.length + (this.params.allowRandom ? 1 : 0);
+        this.memory = new Array(this.params.maxMemory).fill('empty');
+        this.net = new Architect.Perceptron(this.inputSize, 
         // Some hidden layer size determination behaviour is hard-coded for now.
-        Math.max(Math.ceil(numMoves * this.params.maxMemory * this.params.genres.length / 2), 15), Math.max(Math.ceil(numMoves * this.params.maxMemory * this.params.genres.length / 3), 8), numMoves);
-        this.trainer = new synaptic_1.Trainer(this.net);
+        Math.max(Math.ceil(numMoves * this.params.maxMemory * this.params.genres.length / 1.5), 30), numMoves);
     }
     /**
      * Do one step (usually a 8th note), which involves
      * activating the neural network and updating the pen
      * appropriately.
      *
-     * Note handlers (aka TrackPlayer) will automatically be
-     * called as a result.
+     * All note event handlers (aka {@linkcode TrackPlayer})
+     * registered will automatically be called as a result.
+     *
+     * @note It is recommended to use a {@linkcode TrackContext},
+     * instead of using this function directly.
      *
      * @param genreStrength     The weight of each genre defined in the params.
      * @param randomStrength    The weight of randomization.
@@ -352,13 +361,16 @@ class SenseTrack {
      * @see players
      */
     step(genreStrength = [1, 0, 0], randomStrength = 0.2) {
-        let activation = []
-            .concat(this.memory.map((m) => this.makeActivation(m)))
-            .concat(genreStrength)
-            .concat(this.params.allowRandom ? [Math.random() * randomStrength] : []);
+        let activation = this.makeInputVector(this.memory, genreStrength, randomStrength);
+        if (activation.length !== this.inputSize) {
+            console.error(`Bad input sizes! (${activation.length} != ${this.inputSize})`);
+            return null;
+        }
         let output = this.net.activate(activation);
         let instr = this.parseActivation(output);
+        console.log(output, '->', instr);
         this.execute(instr);
+        return instr;
     }
     /**
      * Executes an instruction.
@@ -366,12 +378,12 @@ class SenseTrack {
      * @param memoryCtx Optionally, activation memory buffer to use in place of SenseTrack.memory.
      */
     execute(instr, memoryCtx = this.memory) {
-        if (instr == null)
-            this.penOff();
+        if (instr === null)
+            this.penOff(memoryCtx);
         else if (instr == 0)
-            this.penStay();
+            this.penStay(memoryCtx);
         else
-            this.penMove(instr);
+            this.penMove(instr, memoryCtx);
     }
     /**
      * Make a genre vector from a genre name, index, distribution, or vector.
@@ -381,14 +393,31 @@ class SenseTrack {
         if (Array.isArray(genreStrength))
             return genreStrength;
         else if (isGenreMap(genreStrength)) {
+            return this.params.genres.map((g) => genreStrength.values[g] || 0);
         }
         let ind = 0;
         if (typeof genreStrength === 'string') {
-            ind = this.params.genres.map((s) => s.toUpperCase()).indexOf(genreStrength.toUpperCase());
+            ind = this.params.genres.indexOf(genreStrength);
         }
         else if (typeof genreStrength === 'number')
             ind = genreStrength;
-        return new Array(this.params.genres.length).map((_, i) => +(i == ind));
+        return this.params.genres.map((_, i) => i === ind ? 1 : 0);
+    }
+    /**
+     * Creates an input activation vector, into a format that
+     * can be used by the underlying Synaptic network.
+     * @param memoryCtx The memory context array to be used.
+     * @param genreStrength The genre vector being used.
+     * @param randomStrength The randomization strength.
+     * @see makeGenreVector
+     */
+    makeInputVector(memoryCtx, genreStrength, randomStrength) {
+        let res = [];
+        memoryCtx.forEach((m) => {
+            res = res.concat(this.makeActivation(m));
+        });
+        res = res.concat(genreStrength, this.params.allowRandom ? [Math.random() * randomStrength] : []);
+        return res;
     }
     /**
      * Prepares a track training set into a format that can be
@@ -400,19 +429,19 @@ class SenseTrack {
     prepareTrainingSet(tracks) {
         let trainingSet = [];
         tracks.forEach((instructions) => {
-            let fakeMemory = Array(this.params.maxMemory).fill(null);
+            let fakeMemory = new Array(this.params.maxMemory).fill('empty');
             instructions.forEach((step) => {
-                let activation = []
-                    .concat(fakeMemory.map((m) => this.makeActivation(m)))
-                    .concat(step.genreStrength || new Array(this.params.genres.length).map((_, i) => +(i == 0)))
-                    .concat(this.params.allowRandom ? [Math.random() * (step.randomStrength || 0)] : []);
+                let gvec = this.makeGenreVector(step.genreStrength);
+                let activation = this.makeInputVector(fakeMemory, gvec, step.randomStrength);
+                let expRes = this.makeActivation(step.instr);
                 trainingSet.push({
                     input: activation,
-                    output: this.makeActivation(step.instr)
+                    output: expRes
                 });
                 this.appendMemory(step.instr, fakeMemory);
             });
         });
+        console.log(trainingSet);
         return trainingSet;
     }
     /**
@@ -423,7 +452,8 @@ class SenseTrack {
      */
     train(tracks, trainOptions) {
         let trainingSet = this.prepareTrainingSet(tracks);
-        return this.trainer.train(trainingSet, trainOptions);
+        let trainer = new Trainer(this.net);
+        return trainer.train(trainingSet, trainOptions);
     }
     /**
      * Asynchrounously trains the network on a training set, teaching it to imitate the
@@ -434,7 +464,8 @@ class SenseTrack {
      */
     trainAsync(tracks, trainOptions) {
         let trainingSet = this.prepareTrainingSet(tracks);
-        return this.trainer.trainAsync(trainingSet, trainOptions);
+        let trainer = new Trainer(this.net);
+        return trainer.trainAsync(trainingSet, trainOptions);
     }
     /**
      * Parses the raw activation output from the network, returning the instruction number.
@@ -443,18 +474,11 @@ class SenseTrack {
      * @see net
      * @see step
      */
-    parseActivation(activation) {
-        let maxInd = null;
-        let maxVal = -1;
-        activation.forEach((a, ind) => {
-            if (!maxInd || a > maxVal) {
-                maxInd = ind;
-                maxVal = a;
-            }
-        });
-        if (maxInd == 0) // note off
+    parseActivation(res) {
+        let maxInd = res.indexOf(Math.max.apply(Math, res));
+        if (maxInd === 0) // no-op instruction
             return 0;
-        else if (maxInd == 1) // no-op
+        else if (maxInd === 1) // note off instruction
             return null;
         else {
             maxInd -= 2;
@@ -470,17 +494,23 @@ class SenseTrack {
      * @see step
      */
     makeActivation(instr) {
-        let emptyPart = new Array(this.params.maxMove * 2).fill(0);
-        if (instr === null) // no-op
-            return [0, 1].concat(emptyPart);
-        else if (instr === 0) // note off
-            return [1, 0].concat(emptyPart);
+        let res = new Array(2 + 2 * this.params.maxMove).fill(0);
+        if (instr === 'empty') {
+            return res;
+        }
+        if (instr === 0) { // no-op instruction
+            res[0] = 1;
+            return res;
+        }
+        else if (instr === null) { // note off instruction
+            res[1] = 1;
+            return res;
+        }
         else {
             if (Math.abs(instr) > this.params.maxMove)
                 throw new Error(`Semiton offset too wide; expected number between -${this.params.maxMove} and ${this.params.maxMove}, but got ${instr}!`);
             if (instr > 0)
                 instr--; // so that positives reside tightly in the 2nd half; 1 is 2 + this.params.maxMove
-            let res = [0, 0].concat(emptyPart);
             res[2 + this.params.maxMove + instr] = 1; // negatives are 1st half as intended; math is beautiful!
             return res;
         }
@@ -497,7 +527,7 @@ class SenseTrack {
         else {
             _memoryCtx.push(instruction);
         }
-        if (_memoryCtx.length > this.params.maxMemory) {
+        while (_memoryCtx.length > this.params.maxMemory) {
             _memoryCtx.shift();
         }
     }
@@ -535,6 +565,16 @@ class SenseTrack {
         this.players.add(player);
     }
     /**
+     * Sets the BPM of all {@link TrackPlayer | players} in this SenseTrack.
+     * @param bpm The BPM to set.
+     * @see TrackContext
+     */
+    setBpm(bpm) {
+        this.players.forEach((player) => {
+            player.setBpm(bpm);
+        });
+    }
+    /**
      * Removes a TrackPlayer previously added to this
      * SenseTracker.
      * @param player The TrackPlayer to be removed.
@@ -548,12 +588,11 @@ class SenseTrack {
             throw new Error("The given TrackPlayer is already not in this SenseTrack!");
     }
 }
-exports.SenseTrack = SenseTrack;
 /**
  * Loads definitions to train a SenseTrack
  * object. Multiple definitions may be loaded.
  */
-class DefinitionLoader {
+export class DefinitionLoader {
     constructor() {
         this.tracks = [];
         this.genres = new Set();
@@ -584,7 +623,7 @@ class DefinitionLoader {
                 if (t.absolute)
                     rel = n;
             });
-            tl.push(null);
+            tl.push({ instr: null, genreStrength: t.genre, randomStrength: t.random || 0 });
         });
     }
     /**
@@ -648,4 +687,4 @@ class DefinitionLoader {
         });
     }
 }
-exports.DefinitionLoader = DefinitionLoader;
+//# sourceMappingURL=index.js.map

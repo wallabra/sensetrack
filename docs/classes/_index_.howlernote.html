@@ -110,6 +110,7 @@
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_index_.howlernote.html#adsrloop" class="tsd-kind-icon">adsr<wbr>Loop</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_index_.howlernote.html#noteoff" class="tsd-kind-icon">note<wbr>Off</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_index_.howlernote.html#notestop" class="tsd-kind-icon">note<wbr>Stop</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section tsd-is-private tsd-is-private-protected">
@@ -127,13 +128,13 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Howler<wbr>Note<span class="tsd-signature-symbol">(</span>howl<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Howl</span>, soundID<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, envelope<span class="tsd-signature-symbol">: </span><a href="../interfaces/_index_.adsrenvelope.html" class="tsd-signature-type">AdsrEnvelope</a>, resolution<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, done<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-symbol">(</span>HowlerNote<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_index_.howlernote.html" class="tsd-signature-type">HowlerNote</a></li>
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Howler<wbr>Note<span class="tsd-signature-symbol">(</span>howl<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Howl</span>, soundID<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, envelope<span class="tsd-signature-symbol">: </span><a href="../interfaces/_index_.adsrenvelope.html" class="tsd-signature-type">AdsrEnvelope</a>, resolution<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, done<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-symbol">(</span>note<span class="tsd-signature-symbol">: </span><a href="_index_.howlernote.html" class="tsd-signature-type">HowlerNote</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_index_.howlernote.html" class="tsd-signature-type">HowlerNote</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in index.ts:178</li>
+									<li>Defined in <a href="https://github.com/Gustavo6046/sensetrack/blob/f4c4758/src/index.ts#L167">index.ts:167</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -151,18 +152,18 @@
 									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> resolution: <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = 50</span></h5>
 								</li>
 								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> done: <span class="tsd-signature-symbol">(</span>HowlerNote<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span></h5>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> done: <span class="tsd-signature-symbol">(</span>note<span class="tsd-signature-symbol">: </span><a href="_index_.howlernote.html" class="tsd-signature-type">HowlerNote</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span></h5>
 									<ul class="tsd-parameters">
 										<li class="tsd-parameter-signature">
 											<ul class="tsd-signatures tsd-kind-type-literal">
-												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>HowlerNote<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>note<span class="tsd-signature-symbol">: </span><a href="_index_.howlernote.html" class="tsd-signature-type">HowlerNote</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 											</ul>
 											<ul class="tsd-descriptions">
 												<li class="tsd-description">
 													<h4 class="tsd-parameters-title">Parameters</h4>
 													<ul class="tsd-parameters">
 														<li>
-															<h5>HowlerNote: <span class="tsd-signature-type">any</span></h5>
+															<h5>note: <a href="_index_.howlernote.html" class="tsd-signature-type">HowlerNote</a></h5>
 														</li>
 													</ul>
 													<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -182,20 +183,20 @@
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
 					<a name="adsrinterval" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagPrivate">Private</span> adsr<wbr>Interval</h3>
-					<div class="tsd-signature tsd-kind-icon">adsr<wbr>Interval<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<div class="tsd-signature tsd-kind-icon">adsr<wbr>Interval<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Timeout</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in index.ts:117</li>
+							<li>Defined in <a href="https://github.com/Gustavo6046/sensetrack/blob/f4c4758/src/index.ts#L106">index.ts:106</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
 					<a name="done" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagPrivate">Private</span> <span class="tsd-flag ts-flagOptional">Optional</span> done</h3>
-					<div class="tsd-signature tsd-kind-icon">done<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span>HowlerNote<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span></div>
+					<div class="tsd-signature tsd-kind-icon">done<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span>note<span class="tsd-signature-symbol">: </span><a href="_index_.howlernote.html" class="tsd-signature-type">HowlerNote</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in index.ts:180</li>
+							<li>Defined in <a href="https://github.com/Gustavo6046/sensetrack/blob/f4c4758/src/index.ts#L169">index.ts:169</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-type-declaration">
@@ -203,14 +204,14 @@
 						<ul class="tsd-parameters">
 							<li class="tsd-parameter-signature">
 								<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-class">
-									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>HowlerNote<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>note<span class="tsd-signature-symbol">: </span><a href="_index_.howlernote.html" class="tsd-signature-type">HowlerNote</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 								</ul>
 								<ul class="tsd-descriptions">
 									<li class="tsd-description">
 										<h4 class="tsd-parameters-title">Parameters</h4>
 										<ul class="tsd-parameters">
 											<li>
-												<h5>HowlerNote: <span class="tsd-signature-type">any</span></h5>
+												<h5>note: <a href="_index_.howlernote.html" class="tsd-signature-type">HowlerNote</a></h5>
 											</li>
 										</ul>
 										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -226,7 +227,7 @@
 					<div class="tsd-signature tsd-kind-icon">envelope<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_index_.adsrenvelope.html" class="tsd-signature-type">AdsrEnvelope</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in index.ts:180</li>
+							<li>Defined in <a href="https://github.com/Gustavo6046/sensetrack/blob/f4c4758/src/index.ts#L169">index.ts:169</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -236,7 +237,7 @@
 					<div class="tsd-signature tsd-kind-icon">howl<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Howl</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in index.ts:180</li>
+							<li>Defined in <a href="https://github.com/Gustavo6046/sensetrack/blob/f4c4758/src/index.ts#L169">index.ts:169</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -246,7 +247,7 @@
 					<div class="tsd-signature tsd-kind-icon">level<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = 0</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in index.ts:119</li>
+							<li>Defined in <a href="https://github.com/Gustavo6046/sensetrack/blob/f4c4758/src/index.ts#L108">index.ts:108</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -256,7 +257,7 @@
 					<div class="tsd-signature tsd-kind-icon">soundID<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in index.ts:180</li>
+							<li>Defined in <a href="https://github.com/Gustavo6046/sensetrack/blob/f4c4758/src/index.ts#L169">index.ts:169</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -273,7 +274,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in index.ts:121</li>
+									<li>Defined in <a href="https://github.com/Gustavo6046/sensetrack/blob/f4c4758/src/index.ts#L110">index.ts:110</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -296,7 +297,24 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in index.ts:184</li>
+									<li>Defined in <a href="https://github.com/Gustavo6046/sensetrack/blob/f4c4758/src/index.ts#L173">index.ts:173</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="notestop" class="tsd-anchor"></a>
+					<h3>note<wbr>Stop</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">note<wbr>Stop<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/Gustavo6046/sensetrack/blob/f4c4758/src/index.ts#L181">index.ts:181</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -312,7 +330,7 @@
 					<div class="tsd-signature tsd-kind-icon">adsr<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in index.ts:110</li>
+							<li>Defined in <a href="https://github.com/Gustavo6046/sensetrack/blob/f4c4758/src/index.ts#L100">index.ts:100</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -326,17 +344,7 @@
 						<div class="tsd-signature tsd-kind-icon">phase<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = 0</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in index.ts:112</li>
-							</ul>
-						</aside>
-					</section>
-					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
-						<a name="adsr.pos" class="tsd-anchor"></a>
-						<h3>pos</h3>
-						<div class="tsd-signature tsd-kind-icon">pos<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = 0</span></div>
-						<aside class="tsd-sources">
-							<ul>
-								<li>Defined in index.ts:113</li>
+								<li>Defined in <a href="https://github.com/Gustavo6046/sensetrack/blob/f4c4758/src/index.ts#L102">index.ts:102</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -346,7 +354,7 @@
 						<div class="tsd-signature tsd-kind-icon">prev<wbr>Level<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = 0</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in index.ts:114</li>
+								<li>Defined in <a href="https://github.com/Gustavo6046/sensetrack/blob/f4c4758/src/index.ts#L103">index.ts:103</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -356,7 +364,7 @@
 						<div class="tsd-signature tsd-kind-icon">state<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">"attack"</span><span class="tsd-signature-symbol"> = &quot;attack&quot;</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in index.ts:111</li>
+								<li>Defined in <a href="https://github.com/Gustavo6046/sensetrack/blob/f4c4758/src/index.ts#L101">index.ts:101</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -371,9 +379,6 @@
 					</li>
 					<li class="current tsd-kind-module">
 						<a href="../modules/_index_.html">&quot;index&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="../modules/_test_.html">&quot;test&quot;</a>
 					</li>
 				</ul>
 			</nav>
@@ -414,6 +419,9 @@
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="_index_.howlernote.html#noteoff" class="tsd-kind-icon">note<wbr>Off</a>
 							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_index_.howlernote.html#notestop" class="tsd-kind-icon">note<wbr>Stop</a>
+							</li>
 							<li class=" tsd-kind-object-literal tsd-parent-kind-class tsd-is-private">
 								<a href="_index_.howlernote.html#adsr" class="tsd-kind-icon">adsr</a>
 							</li>
@@ -431,7 +439,7 @@
 						<a href="_index_.sensetrack.html" class="tsd-kind-icon">Sense<wbr>Track</a>
 					</li>
 					<li class=" tsd-kind-class tsd-parent-kind-module">
-						<a href="_index_.tonejsplayer.html" class="tsd-kind-icon">Tonejs<wbr>Player</a>
+						<a href="_index_.trackcontext.html" class="tsd-kind-icon">Track<wbr>Context</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="../interfaces/_index_.adsrenvelope.html" class="tsd-kind-icon">Adsr<wbr>Envelope</a>
@@ -491,7 +499,6 @@
 				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
 			</ul>
 			<ul class="tsd-legend">
-				<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
 				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
 				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
 			</ul>

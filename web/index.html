@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<!-- TODO: basic webpage to demonstrate SenseTrack -->
+
+<html>
+    <head>
+        <meta charset="utf-8">
+
+        <title>SenseTrack Demo.</title>
+        <style>
+            html {
+                background-color: #99A;
+                margin: 0px;
+                padding: 0px;
+                height: 100%;
+            }
+
+            body {
+                background-color: #EDD;
+                color: #282820;
+                margin: 0px 10%;
+                padding: 20px;
+                min-height: 100%;
+                box-sizing: border-box;
+            }
+        </style>
+    </head>
+
+    <body>
+        <h1>SenseTrack Demo.</h1>
+        
+        <p>
+            Status: <b id="status-msg">Loading...</b>
+        </p>
+        
+        <p>
+            Use the following button to toggle the music.
+        </p>
+
+        <div id="button-target"></div>
+
+        <script type="text/javascript" src="bundle.js" hidden></script>
+        <script>
+            require('sensetrack-demo').load();
+        </script>
+    </body>
+</html>
